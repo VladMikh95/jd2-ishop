@@ -23,14 +23,14 @@
 	<form action="Controller" method="post">
 		<input type="hidden" name="local" value="ru" /> 
 		<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-		<input type="hidden" name="page" value="RegistrationSuccess.jsp"/>
+		<input type="hidden" name="page" value="registrationSuccess.jsp"/>
 		<input type="submit" value="${ru_button}" /><br />
 	</form>
 
 	<form action="Controller" method="post">
 		<input type="hidden" name="local" value="en" /> 
 		<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-		<input type="hidden" name="page" value="RegistrationSuccess.jsp"/>
+		<input type="hidden" name="page" value="registrationSuccess.jsp"/>
 		<input type="submit" value="${en_button}" /><br />
 	</form>
 	

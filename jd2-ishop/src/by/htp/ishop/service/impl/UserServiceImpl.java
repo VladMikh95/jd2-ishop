@@ -39,7 +39,6 @@ public class UserServiceImpl implements UserService{
 		
 		try {
 			DAOFactory instance = DAOFactory.getInstance();
-			System.out.println(login +" " + password);
 			return instance.getUserDao().authorization(login, password);
 		} catch(DAOException e) {
 			throw new ServiceException(e);

@@ -24,58 +24,62 @@
 	<fmt:message bundle="${loc}" key="local.registration.email" var="email" />
 	<fmt:message bundle="${loc}" key="local.registration.submit" var="submit" />
 	<fmt:message bundle="${loc}" key="local.registration.failMessage" var="failMessage" />
+	
+	<link rel="stylesheet" href="style.css">
 </head> 
-<body>
-	<form action="Controller" method="post">
-		<input type="hidden" name="local" value="ru" /> 
-		<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-		<input type="hidden" name="page" value="WEB-INF/jsp/Registration.jsp"/>
-		<input type="submit" value="${ru_button}" /><br />
-	</form>
+<body class="body_form">
+	<div class="form">
+		<div class="local_form">
+			<form action="Controller" method="post">
+				<input type="hidden" name="local" value="ru" /> 
+				<input type="hidden" name="command" value="CHANGE_LOCAL"/>
+				<input type="hidden" name="page" value="WEB-INF/jsp/Registration.jsp"/>
+				<button class="local_button">${ru_button}</button>
+			</form>
 
-	<form action="Controller" method="post">
-		<input type="hidden" name="local" value="en" /> 
-		<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-		<input type="hidden" name="page" value="WEB-INF/jsp/Registration.jsp"/>
-		<input type="submit" value="${en_button}" /><br />
-	</form>
-	
-	<h1 style="text-align:center"><c:out value="${headerPage}" /></h1>
-	
-		<p style="text-align:center">
-		<c:if test="${fail == -1}">
-			<c:out value = "${failMessage}"/>
-		</c:if>
-	</p>
-	
-	<p style="text-align:center"><c:out value="${message}" /></p>
+			<form action="Controller" method="post">
+				<input type="hidden" name="local" value="en" /> 
+				<input type="hidden" name="command" value="CHANGE_LOCAL"/>
+				<input type="hidden" name="page" value="WEB-INF/jsp/Registration.jsp"/>
+				<button class="local_button">${en_button}</button>
+			</form>
+		</div>
 
-	<form style="text-align:center" action="Controller" method="post">
+		<form action="Controller" method="post">
+			<h1 class="form_title"><c:out value="${headerPage}" /></h1>
+			<p  class="form_text"><c:out value="${message}" /></p>
+		
+			<p class="error_message">
+				<c:if test="${fail == -1}">
+					<c:out value = "${failMessage}"/>
+				</c:if>
+			</p>
             <input type="hidden" name="command" value="REGISTRATION" >
 
-            <label for="login"><c:out value="${login}"></c:out></label>
-            <input type="text" id="login" name="login" required>
+            <label for="login" class="form_text"><c:out value="${login}"></c:out></label>
+            <input type="text" id="login" name="login" required class="form_input">
             <br><br>
-            <label for="password"><c:out value="${password}" /></label>
-            <input type="password" id="psw" name="password" required>
+            <label for="password" class="form_text"><c:out value="${password}" /></label>
+            <input type="password" id="psw" name="password" required class="form_input">
 			<br><br>
 			
-            <label for="name"><c:out value="${name}" /></label>
-            <input type="text" id="name" name="name" required>
+            <label for="name" class="form_text"><c:out value="${name}" /></label>
+            <input type="text" id="name" name="name" required class="form_input">
 			<br><br>
 			
-            <label for="surname"><c:out value="${surname}" /></label>
-            <input type="text" id="surname" name="surname" required>
+            <label for="surname" class="form_text"><c:out value="${surname}" /></label>
+            <input type="text" id="surname" name="surname" required class="form_input">
 			<br><br>
-            <label for="phoneNumber"><c:out value="${phoneNumber}" /></label>
-            <input type="text" id="phoneNumber" name="phoneNumber" required>
+            <label for="phoneNumber" class="form_text"><c:out value="${phoneNumber}" /></label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required class="form_input">
 			<br><br>
             
-            <label for="email"><c:out value="${email}" /></label>
-            <input type="email" id="email" name="email" required>
+            <label for="email" class="form_text"><c:out value="${email}" /></label>
+            <input type="email" id="email" name="email" required class="form_input">
 			<br><br>
 
-            <input type="submit" value="${submit}">
+            <button class="form_button">${submit}</button>
         </form>
+        </div>
 </body>
 </html>

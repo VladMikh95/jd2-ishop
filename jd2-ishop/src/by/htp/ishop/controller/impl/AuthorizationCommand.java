@@ -17,7 +17,7 @@ import by.htp.ishop.service.UserService;
 public class AuthorizationCommand implements Command{
 	
 	private static final  String NOT_EXIST = "Not Exist";
-	private static final String AUTHORIZATION_SUCCESS ="Controller?command=GO_TO_MAIN_PAGE";
+	private static final String AUTHORIZATION_SUCCESS ="Controller?command=GO_TO_INDEX_PAGE";
 	private static final String AUTHORIZATION_FAIL = "fail";
 	private static final String URL = "WEB-INF/jsp/Authorization.jsp";
 	private static final String USER_SESSION = "user";

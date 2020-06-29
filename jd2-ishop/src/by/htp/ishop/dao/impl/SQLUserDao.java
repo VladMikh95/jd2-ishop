@@ -15,12 +15,12 @@ import by.htp.ishop.dao.impl.connection_pool.ConnectionPoolFactory;
 
 public class SQLUserDao implements UserDao{
 	
-	private final static String NOT_EXIST = "Not Exist";
-	private final static String INSERT_USER = "INSERT INTO users(login, password, name, surname, "
+	private static final String NOT_EXIST = "Not Exist";
+	private static final String INSERT_USER = "INSERT INTO users(login, password, name, surname, "
 			+ "phone_number, email,status, roles_id) VALUES (?,?,?,?,?,?,?,?)";
-	private final static String SELECT_LOGIN_PASSWORD = "SELECT * FROM users INNER JOIN roles ON "
+	private static final String SELECT_LOGIN_PASSWORD = "SELECT * FROM users INNER JOIN roles ON "
 			+ "users.roles_id = roles.id WHERE users.login = ? AND users.password = ?" ;
-	private final static String SELECT_LOGIN = "SELECT * FROM users WHERE login  = ?";
+	private static final String SELECT_LOGIN = "SELECT * FROM users WHERE login  = ?";
 	
 
 	@Override
@@ -32,9 +32,7 @@ public class SQLUserDao implements UserDao{
 		PreparedStatement ps = null;
 		
 		try {
-			/*if(checkLogin(user.getLogin())) {
-				return false;
-			}*/
+
 			cp = ConnectionPoolFactory.getInstance().getConnectionPool();
 			cp.initPoolData();
 			con = cp.takeConnection();
@@ -47,9 +45,6 @@ public class SQLUserDao implements UserDao{
 			if (rs.next()) {
 				return false;
 			}
-			//cp = ConnectionPoolFactory.getInstance().getConnectionPool();
-			//cp.initPoolData();
-			//con = cp.takeConnection();
 			ps.close();
 			ps = con.prepareStatement(INSERT_USER);
 			
@@ -85,11 +80,8 @@ public class SQLUserDao implements UserDao{
 		
 		try {
 			cp = ConnectionPoolFactory.getInstance().getConnectionPool();
-			System.out.println("a");
 			cp.initPoolData();
-			System.out.println("b");
 			con = cp.takeConnection();
-			System.out.println("c");
 			
 			ps = con.prepareStatement(SELECT_LOGIN_PASSWORD);
 			
@@ -99,24 +91,18 @@ public class SQLUserDao implements UserDao{
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				System.out.println(1);
-				System.out.println(rs.getString(11));
 				AuthorizationUser user = new AuthorizationUser(rs.getString(4),
 															   rs.getString(5),
 															   rs.getString(6),
 															   rs.getString(7),
 															   rs.getString(8),
 															   rs.getString(11));
-				System.out.println(4);
 				return user;
 			}
 			return new AuthorizationUser(null, null, null, null, NOT_EXIST, null);
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			System.out.println("SQL exception");
 			throw new DAOException(e);
 		} catch (ConnectionPoolException e) {
-			System.out.println();
 			throw new DAOException(e);
 		}finally {
 			cp.closeConnection(con, ps, rs);
@@ -128,33 +114,5 @@ public class SQLUserDao implements UserDao{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	/*private boolean checkLogin(String login) throws DAOException {
-		Connection con = null;
-		ConnectionPool cp = null;
-		ResultSet rs = null;
-		PreparedStatement ps = null;
-		
-		try {
-			cp = ConnectionPoolFactory.getInstance().getConnectionPool();
-			cp.initPoolData();
-			con = cp.takeConnection();
-			ps = con.prepareStatement(SELECT_LOGIN);
-			
-			ps.setString(1, login);
-			
-			rs = ps.executeQuery();
-			
-			if (rs.next()) {
-				return true;
-			}
-			return false;
-		} catch (SQLException | ConnectionPoolException e) {
-			System.out.println("1");
-			throw new DAOException(e);
-		} finally {
-			cp.closeConnection(con, ps, rs);
-		}
-	}*/
 
 }
