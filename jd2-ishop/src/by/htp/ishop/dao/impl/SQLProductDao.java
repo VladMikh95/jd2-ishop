@@ -18,13 +18,13 @@ import by.htp.ishop.dao.impl.connection_pool.ConnectionPoolFactory;
 public class SQLProductDao implements ProductDao{
 	
 	private static final String GET_PRODUCTS_BY_CATEGORY = "SELECT ishop.products.id, ishop.products.name,"
-			+ "ishop.products.image, ishop.products.price, ishop.masters.name, ishop.masters.surname, ishop.masters.phoneNumber, "
+			+ "ishop.products.image, ishop.products.material, ishop.products.price, ishop.masters.name, ishop.masters.surname, ishop.masters.phoneNumber, "
 			+ "ishop.masters.email, ishop.categories.name FROM ishop.products JOIN ishop.categories ON "
 			+ "ishop.products.categories_id = ishop.categories.id JOIN ishop.masters ON ishop.products.masters_id = ishop.masters.id"
 			+ " WHERE ishop.categories.name = ? AND ishop.products.statuses_product_id = 1";
 	
 	private static final String GET_PRODUCT_BY_ID = "SELECT p.id, p.name, "
-			+ "p.image, p.price, c.name, m.name, m.surname, m.phoneNumber, "
+			+ "p.image, p.material, p.price, c.name, m.name, m.surname, m.phoneNumber, "
 			+ "m.email FROM ishop.products p JOIN ishop.categories c ON "
 			+ "p.categories_id = c.id JOIN ishop.masters m ON p.masters_id ="
 			+ " m.id WHERE p.id = ?";
@@ -56,15 +56,16 @@ public class SQLProductDao implements ProductDao{
 			List<Product> products = new ArrayList<Product>();
 			
 			while (rs.next()) {
-				Master master = new Master(rs.getString(6),
-						   					rs.getString(7),
+				Master master = new Master(rs.getString(7),
 						   					rs.getString(8),
-						   					rs.getString(9));
+						   					rs.getString(9),
+						   					rs.getString(10));
 				Product product = new Product(rs.getInt(1),
 												rs.getString(2),
 												rs.getString(3),
-												rs.getDouble(4),
-												rs.getString(5),
+												rs.getString(4),
+												rs.getDouble(5),
+												rs.getString(6),
 												master);
 				products.add(product);
 			}
@@ -104,15 +105,16 @@ public class SQLProductDao implements ProductDao{
 			Product product = new Product();
 			
 			if (rs.next()) {
-				Master master = new Master(rs.getString(6),
-						   					rs.getString(7),
+				Master master = new Master(rs.getString(7),
 						   					rs.getString(8),
-						   					rs.getString(9));
+						   					rs.getString(9),
+						   					rs.getString(10));
 				product = new Product(rs.getInt(1),
 										rs.getString(2),
 										rs.getString(3),
-										rs.getDouble(4),
-										rs.getString(5),
+										rs.getString(4),
+										rs.getDouble(5),
+										rs.getString(6),
 										master);
 			}
 			return product;

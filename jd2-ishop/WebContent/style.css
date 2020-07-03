@@ -105,7 +105,6 @@
 	height: 60px;
 	display: flex;
 	text-align: center;
-    align-items: center;
     justify-content: center;
 	font-family: Verdana, Geneva, sans-serif;
 	color: LimeGreen;
@@ -137,6 +136,61 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
+.product {
+	width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.product_image {
+	width: 50%;
+	padding: 7%;
+	justify-content: center;
+}
+
+.product_info {
+	display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+	width: 30%;
+	padding: 3%;
+	justify-content: center;
+}
+
+.add_to_cart_button {
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+	width: 100%;
+	padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    background-color: PaleGreen;
+    outline: none;  
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add_to_cart_button:focus,
+.add_to_cart_button:hover{
+    background-color: Lime;
+}
+
+.add_to_cart_text {
+	width: 85%;
+	font-size: 18px;
+	color: White;
+	text-align: center;
+}
+
+.text_lime {
+	padding: 5px 0px 3px 0px;
+	color: Lime;
+}
+
 
 .body_form {
 	background-image: url("images/background.jpg");
@@ -234,6 +288,12 @@
  
  .link_text {
 	color: PaleGreen;
+ }
+ 
+ .cart_message-invitation {
+ 	display: flex;
+ 	align-items: center;
+    justify-content: center;
  }
  
 .local_button:focus,

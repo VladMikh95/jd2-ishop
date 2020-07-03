@@ -16,14 +16,11 @@
 	<fmt:message bundle="${loc}" key="local.locbutton.name.en"	var="en_button" />
 	<fmt:message bundle="${loc}" key="local.headerPage.one" var="headerPageOne" />
 	<fmt:message bundle="${loc}" key="local.headerPage.two" var="headerPageTwo" />
-	<fmt:message bundle="${loc}" key="local.button.registration" var="registration" />
-	<fmt:message bundle="${loc}" key="local.button.authorization" var="authorization" />
+	<fmt:message bundle="${loc}" key="local.button.registration"	var="registration" />
+	<fmt:message bundle="${loc}" key="local.button.authorization"	var="authorization" />
 	<fmt:message bundle="${loc}" key="local.products.homepage" var="homePage" />
-	<fmt:message bundle="${loc}" key="local.products.price" var="price" />
-	<fmt:message bundle="${loc}" key="local.product.add.to.cart" var="addToCart" />
-	<fmt:message bundle="${loc}" key="local.product.material" var="material" />
-	<fmt:message bundle="${loc}" key="local.product.master" var="master" />
-	<fmt:message bundle="${loc}" key="local.product.master.phone.number" var="mastersPhoneNumber" />
+	<fmt:message bundle="${loc}" key="local.cart.message.invitation" var="messageInvitation" />
+
 </head>
 <body class="body">
 	<div class="header">
@@ -34,18 +31,18 @@
 		<form action="Controller" method="post">
 			<input type="hidden" name="local" value="ru" /> 
 			<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-			<input type="hidden" name="page" value="WEB-INF/jsp/product.jsp"/>
+			<input type="hidden" name="page" value="WEB-INF/jsp/cart.jsp"/>
 			<button class="local_button">${ru_button}</button>
 		</form>
 
 		<form action="Controller" method="post">
 			<input type="hidden" name="local" value="en" /> 
 			<input type="hidden" name="command" value="CHANGE_LOCAL"/>
-			<input type="hidden" name="page" value="WEB-INF/jsp/product.jsp"/>
+			<input type="hidden" name="page" value="WEB-INF/jsp/cart.jsp"/>
 			<button class="local_button">${en_button}</button>
 		</form>
 	</div>
-	
+
 	<div class="menu">
 		<c:if test="${user == null}">
 			<div>
@@ -83,63 +80,24 @@
 		</c:if>
 		
 		<div>
-				<form action="authorization" method="post">
-					<button class="menu_button">
-						<img class="menu_img_button" src="images/cart.svg">
-						<div class="text_button"> ${authorization}</div>
-					</button>
-				</form>
-		</div>
-		
-		<div>
-				<form action="Controller" method="post">
-					<input type="hidden" name="command" value="GO_TO_INDEX_PAGE"/>
-					<button class="menu_button">
-						<img class="menu_img_button" src="images/home.svg">
-						<div class="text_button"> ${homePage}</div>
-					</button>
-				</form>
-		</div>	
-	</div>	
-
-	<div class="product">
-		<img src="${product.imagePath}" class="product_image">
-		
-		<div class="product_info">
-			<div class="product_title">
-				<c:out value="${product.name}" />
-			</div>
-			
 			<form action="Controller" method="post">
-					<input type="hidden" name="command" value="ADD_TO_CART"/>
-					<button class="add_to_cart_button">
-						<img class="menu_img_button" src="images/cart.svg">
-						<div class="add_to_cart_text"> ${addToCart}</div>
-					</button>
+				<input type="hidden" name="command" value="GO_TO_INDEX_PAGE"/>
+				<button class="menu_button">
+					<img class="menu_img_button" src="images/home.svg">
+					<div class="text_button"> ${homePage}</div>
+				</button>
 			</form>
-			<div>
-				<div class="text_lime">
-					<c:out value="${material}" />
-				</div>
-				<c:out value="${product.material}" />
-			</div>
 		</div>
+		
 	</div>
 	
 	<div>
-		<div class="text_lime">
-			<c:out value="${master}" />
-		</div>
-		<c:out value="${product.master.name} ${product.master.surname}"  />
-		<div class="text_lime">
-			<c:out value="${mastersPhoneNumber}" />
-		</div>
-		<c:out value="${product.master.phoneNumber}"  />
-		<div class="text_lime">
-			<c:out value="email" />
-		</div>
-		<c:out value="${product.master.email}"  />
+		<c:if test="${user == null}">
+			<div class="cart_message_invitation">
+				<c:out value="${messageInvitation}" />
+			</div>	
+		</c:if>
+			
 	</div>
-
 </body>
 </html>

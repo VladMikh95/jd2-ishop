@@ -6,6 +6,7 @@ import java.util.Map;
 import by.htp.ishop.controller.impl.AuthorizationCommand;
 import by.htp.ishop.controller.impl.ChangeLocalCommand;
 import by.htp.ishop.controller.impl.ChangeUserStatus;
+import by.htp.ishop.controller.impl.GetCartCommand;
 import by.htp.ishop.controller.impl.GetProductCommand;
 import by.htp.ishop.controller.impl.GetProductsByCategoryCommand;
 import by.htp.ishop.controller.impl.GoToAuthorizationPageCommand;
@@ -29,6 +30,7 @@ public class CommandProvider {
 		commands.put(CommandName.GO_TO_AUTHORIZATION_PAGE, new GoToAuthorizationPageCommand());
 		commands.put(CommandName.GET_PRODUCTS_BY_CATEGORY, new GetProductsByCategoryCommand());
 		commands.put(CommandName.GET_PRODUCT, new GetProductCommand());
+		commands.put(CommandName.GET_CART, new GetCartCommand());
 		commands.put(CommandName.CHANGE_LOCAL, new ChangeLocalCommand());
 		commands.put(CommandName.CHANGE_USER_STATUS, new ChangeUserStatus());
 		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());

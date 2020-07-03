@@ -18,6 +18,7 @@
 	<fmt:message bundle="${loc}" key="local.headerPage.two" var="headerPageTwo" />
 	<fmt:message bundle="${loc}" key="local.button.registration"	var="registration" />
 	<fmt:message bundle="${loc}" key="local.button.authorization"	var="authorization" />
+	<fmt:message bundle="${loc}" key="local.button.cart" var="cart" />
 	<fmt:message bundle="${loc}" key="local.index.wood" var="wood" />
 	<fmt:message bundle="${loc}" key="local.index.leather" var="leather" />
 	<fmt:message bundle="${loc}" key="local.index.wool" var="wool" />
@@ -81,10 +82,11 @@
 		</c:if>
 		
 		<div>
-				<form action="authorization" method="post">
+				<form action="Controller" method="post">
+				<input type="hidden" name="command" value="GET_CART" />
 					<button class="menu_button">
 						<img class="menu_img_button" src="images/cart.svg">
-						<div class="text_button"> ${authorization}</div>
+						<div class="text_button"> ${cart}</div>
 					</button>
 				</form>
 		</div>

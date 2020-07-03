@@ -32,11 +32,7 @@ public class GetProductCommand implements Command{
 		HttpSession session = req.getSession(true);
 		
 		try {
-			//AuthorizationUser authorizationUser = userService.authorization(login, password);
-			//List<Product> products = productService.getProductsByCategory(categoryName);
-			//session.setAttribute(PRODUCTS_SESSION, products);
-			//resp.sendRedirect(AUTHORIZATION_SUCCESS);
-			req.setAttribute(PRODUCT, productService.getProduct(productId));
+			session.setAttribute(PRODUCT, productService.getProduct(productId));
             RequestDispatcher dispatcher = req.getRequestDispatcher(PRODUCT_PAGE_URL);
             dispatcher.forward(req, resp);
 		} catch (ServiceException e) {

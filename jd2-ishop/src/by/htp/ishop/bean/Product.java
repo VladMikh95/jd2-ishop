@@ -12,6 +12,8 @@ public class Product implements Serializable{
 	
 	private  String imagePath;
 	
+	private String material;
+	
 	private double price;
 	
 	private String category;
@@ -22,11 +24,12 @@ public class Product implements Serializable{
 		
 	}
 	
-	public Product(int id, String name, String imagePath, double price, String category, 
+	public Product(int id, String name, String imagePath, String material, double price, String category, 
 			Master master) {
 		this.id = id;
 		this.name = name;
 		this.imagePath = imagePath;
+		this.material = material;
 		this.price = price;
 		this.category = category;
 		this.master = master;
@@ -54,6 +57,14 @@ public class Product implements Serializable{
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
 	}
 
 	public double getPrice() {
@@ -88,6 +99,7 @@ public class Product implements Serializable{
 		result = prime * result + id;
 		result = prime * result + ((imagePath == null) ? 0 : imagePath.hashCode());
 		result = prime * result + ((master == null) ? 0 : master.hashCode());
+		result = prime * result + ((material == null) ? 0 : material.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
@@ -121,6 +133,11 @@ public class Product implements Serializable{
 				return false;
 		} else if (!master.equals(other.master))
 			return false;
+		if (material == null) {
+			if (other.material != null)
+				return false;
+		} else if (!material.equals(other.material))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -133,8 +150,10 @@ public class Product implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", imagePath=" + imagePath + ", price=" + price + ", category="
-				+ category + ", master=" + master + "]";
+		return "Product [id=" + id + ", name=" + name + ", imagePath=" + imagePath + ", material=" + material
+				+ ", price=" + price + ", category=" + category + ", master=" + master + "]";
 	}
+
+
 
 }
