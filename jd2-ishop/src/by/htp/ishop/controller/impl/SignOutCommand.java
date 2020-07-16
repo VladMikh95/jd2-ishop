@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.htp.ishop.controller.Command;
 
-public class ChangeLocalCommand implements Command {
+public class SignOutCommand implements Command{
 	
-	private static final String LOCAL = "local";
+	private static final String USER = "user";
 	
-	private static final String NAME_PAGE = "page";
+	private static final String PATH = "path";
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		req.getSession(true).setAttribute(LOCAL, req.getParameter(LOCAL));
-		req.getRequestDispatcher(req.getParameter(NAME_PAGE)).forward(req, resp);
-		
+		req.getSession().setAttribute(USER, null);
+		req.getRequestDispatcher(req.getParameter(PATH)).forward(req, resp);
 	}
+	
 
 }

@@ -1,5 +1,6 @@
 package by.htp.ishop.dao;
 
+import by.htp.ishop.dao.impl.SQLOrderDao;
 import by.htp.ishop.dao.impl.SQLProductDao;
 import by.htp.ishop.dao.impl.SQLUserDao;
 
@@ -9,7 +10,9 @@ public final class DAOFactory {
 	
 	private UserDao userDao = new SQLUserDao();
 	
-	private ProductDao product = new SQLProductDao();
+	private ProductDao productDao = new SQLProductDao();
+	
+	private OrderDao orderDao = new SQLOrderDao();
 	
 	private DAOFactory() {
 		
@@ -24,7 +27,11 @@ public final class DAOFactory {
 	}
 	
 	public ProductDao getProductDao() {
-		return product;
+		return productDao;
+	}
+	
+	public OrderDao getOrderDao() {
+		return orderDao;
 	}
 	
 	

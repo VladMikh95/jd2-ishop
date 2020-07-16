@@ -3,18 +3,20 @@ package by.htp.ishop.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import by.htp.ishop.controller.impl.AddToCartCommand;
 import by.htp.ishop.controller.impl.AuthorizationCommand;
 import by.htp.ishop.controller.impl.ChangeLocalCommand;
 import by.htp.ishop.controller.impl.ChangeUserStatus;
+import by.htp.ishop.controller.impl.ClosePopupCommand;
 import by.htp.ishop.controller.impl.GetCartCommand;
 import by.htp.ishop.controller.impl.GetProductCommand;
 import by.htp.ishop.controller.impl.GetProductsByCategoryCommand;
 import by.htp.ishop.controller.impl.GoToAuthorizationPageCommand;
 import by.htp.ishop.controller.impl.GoToIndexPageCommand;
-import by.htp.ishop.controller.impl.GoToMainPageCommand;
+import by.htp.ishop.controller.impl.GoToRegistrationPageCommand;
 import by.htp.ishop.controller.impl.GoToRegistrationSuccessPageCommand;
 import by.htp.ishop.controller.impl.RegistrationCommand;
-import by.htp.ishop.controller.impl.WrongRequest;
+import by.htp.ishop.controller.impl.SignOutCommand;
 
 public class CommandProvider {
 	
@@ -23,8 +25,9 @@ public class CommandProvider {
 	public CommandProvider() {
 		commands.put(CommandName.REGISTRATION, new RegistrationCommand());
 		commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
-		commands.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPageCommand());
+		commands.put(CommandName.ADD_TO_CART, new AddToCartCommand());
 		commands.put(CommandName.GO_TO_INDEX_PAGE, new GoToIndexPageCommand());
+		commands.put(CommandName.GO_TO_REGISTRATION_PAGE, new GoToRegistrationPageCommand());
 		commands.put(CommandName.GO_TO_REGISTRATION_SUCCESS_PAGE, 
 				new GoToRegistrationSuccessPageCommand());
 		commands.put(CommandName.GO_TO_AUTHORIZATION_PAGE, new GoToAuthorizationPageCommand());
@@ -33,7 +36,9 @@ public class CommandProvider {
 		commands.put(CommandName.GET_CART, new GetCartCommand());
 		commands.put(CommandName.CHANGE_LOCAL, new ChangeLocalCommand());
 		commands.put(CommandName.CHANGE_USER_STATUS, new ChangeUserStatus());
-		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());
+		commands.put(CommandName.SIGN_OUT, new SignOutCommand());
+		commands.put(CommandName.CLOSE_POPUP, new ClosePopupCommand());
+
 	}
 	
 	public Command getCommand(String strCommandName) {
@@ -44,7 +49,7 @@ public class CommandProvider {
 			commandName = CommandName.valueOf(strCommandName.toUpperCase());
 			command = commands.get(commandName);
 		} catch(IllegalArgumentException | NullPointerException e) {
-			command = commands.get(CommandName.WRONG_REQUEST);
+			System.out.println("SGDV");
 		} 
 		return command;
 	}

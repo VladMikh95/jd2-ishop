@@ -18,14 +18,21 @@
 	<fmt:message bundle="${loc}" key="local.headerPage.two" var="headerPageTwo" />
 	<fmt:message bundle="${loc}" key="local.button.registration" var="registration" />
 	<fmt:message bundle="${loc}" key="local.button.authorization" var="authorization" />
+	<fmt:message bundle="${loc}" key="local.button.cart" var="cart" />
+	<fmt:message bundle="${loc}" key="local.button.signout" var="signout" />
 	<fmt:message bundle="${loc}" key="local.products.homepage" var="homePage" />
 	<fmt:message bundle="${loc}" key="local.products.price" var="price" />
 	<fmt:message bundle="${loc}" key="local.product.add.to.cart" var="addToCart" />
 	<fmt:message bundle="${loc}" key="local.product.material" var="material" />
 	<fmt:message bundle="${loc}" key="local.product.master" var="master" />
 	<fmt:message bundle="${loc}" key="local.product.master.phone.number" var="mastersPhoneNumber" />
+	<fmt:message bundle="${loc}" key="local.product.popup.add.success" var="addsuccess" />
+	<fmt:message bundle="${loc}" key="local.product.popup.already.added" var="alreadyadded" />
+	<fmt:message bundle="${loc}" key="local.product.popup.button" var="popupButton" />
+	
 </head>
-<body class="body">
+<body>
+	<div class="body">
 	<div class="header">
 		<p class="header_text_one"><c:out value="${headerPageOne}" /></p>
 		<p class="header_text_two"><c:out value="${headerPageTwo}" /></p>
@@ -73,20 +80,23 @@
 			</div>
 			
 			<div>
-				<form action="authorization" method="post">
+				<form action="Controller" method="post">
+					<input type="hidden" name="command" value="SIGN_OUT"/>
+					<input type="hidden" name="path" value="index.jsp"/>
 					<button class="menu_button">
 						<img class="menu_img_button" src="images/signout.svg">
-						<div class="text_button">${authorization}</div>
+						<div class="text_button">${signout}</div>
 					</button>
 				</form>
 			</div>		
 		</c:if>
 		
 		<div>
-				<form action="authorization" method="post">
+				<form action="Controller" method="post">
+				<input type="hidden" name="command" value="GET_CART" />
 					<button class="menu_button">
 						<img class="menu_img_button" src="images/cart.svg">
-						<div class="text_button"> ${authorization}</div>
+						<div class="text_button"> ${cart}</div>
 					</button>
 				</form>
 		</div>
@@ -111,7 +121,8 @@
 			</div>
 			
 			<form action="Controller" method="post">
-					<input type="hidden" name="command" value="ADD_TO_CART"/>
+					<input type="hidden" name="command" value="ADD_TO_CART" />
+					<input type="hidden" name="productId" value="${product.id}" />
 					<button class="add_to_cart_button">
 						<img class="menu_img_button" src="images/cart.svg">
 						<div class="add_to_cart_text"> ${addToCart}</div>
@@ -140,6 +151,37 @@
 		</div>
 		<c:out value="${product.master.email}"  />
 	</div>
+	</div>
+	
+	<c:if test="${requestScope.popupMessage eq 'addSuccess'}" >
+	<div class="modal">
+	<div class="form">
+		<form action="Controller" method="post">
+			<input type="hidden" name="command" value="CLOSE_POPUP" />
+			<input type="hidden" name="productId" value="${product.id}" />
+			<div class=text_black>
+				<c:out value="${addsuccess}" />
+			</div>
+			<button class="form_button">${popupButton}</button>
+		</form>
+		</div>
+	</div>
+	</c:if>
+	
+	<c:if test="${requestScope.popupMessage eq 'alreadyAdded'}" >
+	<div class="modal">
+	<div class="form">
+		<form action="Controller" method="post">
+			<input type="hidden" name="command" value="CLOSE_POPUP" />
+			<input type="hidden" name="productId" value="${product.id}" />
+			<div class=text_black>
+				<c:out value="${alreadyadded}" />
+			</div>
+			<button class="form_button">${popupButton}</button>
+		</form>
+	</div>
+	</div>
+	</c:if>
 
 </body>
 </html>

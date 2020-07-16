@@ -18,6 +18,7 @@
 	<fmt:message bundle="${loc}" key="local.authorization.login" var="login" />
 	<fmt:message bundle="${loc}" key="local.authorization.password" var="password" />
 	<fmt:message bundle="${loc}" key="local.authorization.submit" var="submit" />
+	<fmt:message bundle="${loc}" key="local.authorization.errorMessage" var="errorMessage" />
 	<fmt:message bundle="${loc}" key="local.authorization.failMessage" var="failMessage" />
 	<fmt:message bundle="${loc}" key="local.authorization.ask.registr" var="askRegistr" />
 	
@@ -47,21 +48,27 @@
 	  		<input type="hidden" name="command" value="AUTHORIZATION" />
 	  		<div class="form_grup">
 	  			<label for="login" class="form_text"><c:out value="${login}" /></label>
-	    		<input type="text"  name="login" required class="form_input">
+	    		<input type="text"  name="login" class="form_input">
 	  		</div>
 	  	
 	  		<div class="form_grup">
 	  			<label for="password" class="form_text"><c:out value="${password}" /></label>
-	  			<input type="password" id="password" name="password" required class="form_input">
+	  			<input type="password" id="password" name="password" class="form_input">
 	  		</div>
-
-	    	<div>
+			
+			<div>
 	    		<p class="error_message">
-					<c:if test="${fail == -1}">
+					<c:if test="${param.fail == 'notExist'}">
 						<c:out value = "${failMessage}"/>
 					</c:if>
+					
+					<c:if test="${param.fail == 'invalidData'}">
+						<c:out value = "${errorMessage}"/>
+					</c:if>
+					
 				</p>
 	    	</div>
+	    	
 			<button class="form_button">${submit}</button>
 		</form>
 		

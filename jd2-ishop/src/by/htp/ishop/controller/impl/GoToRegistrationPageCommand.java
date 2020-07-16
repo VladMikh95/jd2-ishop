@@ -8,17 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.htp.ishop.controller.Command;
 
-public class ChangeLocalCommand implements Command {
+public class GoToRegistrationPageCommand implements Command {
 	
-	private static final String LOCAL = "local";
+	public static final String PATH = "/WEB-INF/jsp/Registration.jsp";
 	
-	private static final String NAME_PAGE = "page";
-
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		req.getSession(true).setAttribute(LOCAL, req.getParameter(LOCAL));
-		req.getRequestDispatcher(req.getParameter(NAME_PAGE)).forward(req, resp);
-		
+		req.getRequestDispatcher(PATH).forward(req, resp);
 	}
 
 }

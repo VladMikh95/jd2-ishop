@@ -5,6 +5,7 @@ import by.htp.ishop.bean.User;
 import by.htp.ishop.dao.DAOException;
 import by.htp.ishop.dao.DAOFactory;
 import by.htp.ishop.service.ServiceException;
+import by.htp.ishop.service.ServiceInvalidDataException;
 import by.htp.ishop.service.UserService;
 
 public class UserServiceImpl implements UserService{
@@ -13,8 +14,13 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean registration(User user) throws ServiceException {
-		if (user == null) {
-			throw new ServiceException("Incorrect User data");
+		if ((user == null) ||(user.getLogin() == null) || user.getLogin().isEmpty()
+				|| (user.getPassword() == null) || (user.getPassword().isEmpty())
+				|| (user.getName() == null) || (user.getName().isEmpty())
+				|| (user.getSurname() == null) || (user.getSurname().isEmpty())
+				|| (user.getPhoneNumber() == null) || (user.getPhoneNumber().isEmpty())
+				|| (user.getEmail() == null) || (user.getEmail().isEmpty())) {
+			throw new ServiceInvalidDataException("Registration error. Invalid data");
 		}
 		try {
 			DAOFactory instance = DAOFactory.getInstance();
@@ -23,25 +29,23 @@ public class UserServiceImpl implements UserService{
 			}
 			return false;
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException("Registration error", e);
 		}
 		
 	}
 
 	@Override
-	public AuthorizationUser authorization(String login, String password) throws ServiceException {
-		if((login == null) || (login.isEmpty())) {
-			System.out.println("login incorrect");
-		}
-		if((password == null) || (password.isEmpty())) {
-			System.out.println("password incorrect");
+	public AuthorizationUser authorization(String login, String password) 
+			throws ServiceException, ServiceInvalidDataException {
+		if((login == null) || (login.isEmpty()) || (password == null) || (password.isEmpty())) {
+			throw new ServiceInvalidDataException("Authorization error. Invalid data");
 		}
 		
 		try {
 			DAOFactory instance = DAOFactory.getInstance();
 			return instance.getUserDao().authorization(login, password);
 		} catch(DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException("Authorization error");
 		}
 	}
 

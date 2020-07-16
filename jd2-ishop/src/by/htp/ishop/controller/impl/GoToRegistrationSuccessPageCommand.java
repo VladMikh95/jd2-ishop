@@ -10,7 +10,7 @@ import by.htp.ishop.controller.Command;
 
 public class GoToRegistrationSuccessPageCommand implements Command{
 	
-	private static final String PATH = "/WEB-INF/jsp/RegistrationSuccess.jsp";
+	private static final String PATH = "/WEB-INF/jsp/registrationSuccess.jsp";
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

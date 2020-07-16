@@ -18,6 +18,8 @@
 	<fmt:message bundle="${loc}" key="local.headerPage.two" var="headerPageTwo" />
 	<fmt:message bundle="${loc}" key="local.button.registration" var="registration" />
 	<fmt:message bundle="${loc}" key="local.button.authorization" var="authorization" />
+	<fmt:message bundle="${loc}" key="local.button.cart" var="cart" />
+	<fmt:message bundle="${loc}" key="local.button.signout" var="signout" />
 	<fmt:message bundle="${loc}" key="local.products.wood" var="categoryWood" />
 	<fmt:message bundle="${loc}" key="local.products.leather" var="categoryLeather" />
 	<fmt:message bundle="${loc}" key="local.products.wool" var="categoryWool" />
@@ -73,20 +75,23 @@
 			</div>
 			
 			<div>
-				<form action="authorization" method="post">
+				<form action="Controller" method="post">
+					<input type="hidden" name="command" value="SIGN_OUT"/>
+					<input type="hidden" name="path" value="index.jsp"/>
 					<button class="menu_button">
 						<img class="menu_img_button" src="images/signout.svg">
-						<div class="text_button">${authorization}</div>
+						<div class="text_button">${signout}</div>
 					</button>
 				</form>
 			</div>		
 		</c:if>
 		
 		<div>
-				<form action="authorization" method="post">
+				<form action="Controller" method="post">
+				<input type="hidden" name="command" value="GET_CART" />
 					<button class="menu_button">
 						<img class="menu_img_button" src="images/cart.svg">
-						<div class="text_button"> ${authorization}</div>
+						<div class="text_button"> ${cart}</div>
 					</button>
 				</form>
 		</div>

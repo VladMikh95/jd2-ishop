@@ -319,4 +319,35 @@
  	color: red;
  }
  
+ .modal {
+	position: fixed; /* Оставаться на месте */
+	position:fixed;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	z-index: 1; /* Сидеть на вершине */
+	padding-top: 100px; /* Расположение коробки */
+	left: 0;
+	top: 0;
+	width: 100%; /* Полная ширина */
+	height: 100%; /* Полная высота */
+	overflow: auto; /* Включите прокрутку, если это необходимо */
+	background-color: rgb(0,0,0); /* Цвет запасной вариант  */
+	background-color: rgba(0,0,0,0.4); /*Черный с непрозрачностью */
+}
+
+.cart_container {
+
+    max-width: 850px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 50px;
+    padding-bottom: 60px;
+
+	background: #fff;
+	border-radius: 20px;
+}
+ 
  

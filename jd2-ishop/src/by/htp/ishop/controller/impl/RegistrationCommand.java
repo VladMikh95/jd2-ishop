@@ -10,14 +10,19 @@ import by.htp.ishop.bean.User;
 import by.htp.ishop.controller.Command;
 import by.htp.ishop.service.ServiceException;
 import by.htp.ishop.service.ServiceFactory;
+import by.htp.ishop.service.ServiceInvalidDataException;
 import by.htp.ishop.service.UserService;
 
 
 public class RegistrationCommand implements Command {
 	
-	private static final String PATH = "/WEB-INF/jsp/registrationSuccess.jsp";
-	private static final String REGISTRATION_FAIL = "fail";
-	private static final String REGISTRATION_PATH = "/WEB-INF/jsp/Registration.jsp";
+	private static final String REQUEST_REGISTRATION_SUCCESS = "Controller?command=GO_TO_REGISTRATION_SUCCESS_PAGE";
+	
+	private static final String REQUEST_USER_ALREADY_EXIST = "Controller?command=GO_TO_REGISTRATION_PAGE"
+			+ "&fail=userAlreadyExist";
+	
+	private static final String REQUEST_INVALID_DATA = "Controller?command=GO_TO_REGISTRATION_PAGE"
+			+ "&fail=invalidData";
 	
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,14 +43,16 @@ public class RegistrationCommand implements Command {
 		UserService userService = instance.getUserService();
 		
 		try {
+			
 			if(userService.registration(user)) {
-				req.getRequestDispatcher(PATH).forward(req, resp);
+				resp.sendRedirect(REQUEST_REGISTRATION_SUCCESS);
 			} else {
-				req.setAttribute(REGISTRATION_FAIL, -1);
-				req.getRequestDispatcher(REGISTRATION_PATH).forward(req, resp);
+				resp.sendRedirect(REQUEST_USER_ALREADY_EXIST);
 				System.out.println("hbdxc");
 			}
 			System.out.println("hbdxc");
+		} catch (ServiceInvalidDataException e) {
+			resp.sendRedirect(REQUEST_INVALID_DATA);
 		} catch (ServiceException e) {
 			System.out.println("Incorrect data");
 		}
