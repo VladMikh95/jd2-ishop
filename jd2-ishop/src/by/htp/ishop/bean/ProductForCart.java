@@ -14,6 +14,8 @@ public class ProductForCart implements Serializable{
 	
 	private double price;
 	
+	private int quantity;
+	
 	public ProductForCart() {
 		
 	}
@@ -23,6 +25,7 @@ public class ProductForCart implements Serializable{
 		this.name = name;
 		this.image = image;
 		this.price = price;
+		this.quantity = 1;
 	}
 
 	public int getId() {
@@ -56,6 +59,15 @@ public class ProductForCart implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,6 +79,7 @@ public class ProductForCart implements Serializable{
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + quantity;
 		return result;
 	}
 
@@ -93,11 +106,16 @@ public class ProductForCart implements Serializable{
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
+		if (quantity != other.quantity)
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductForCart [id=" + id + ", name=" + name + ", image=" + image + ", price=" + price + "]";
+		return "ProductForCart [id=" + id + ", name=" + name + ", image=" + image + ", price=" + price + ", quantity="
+				+ quantity + "]";
 	}
+
+	
 }

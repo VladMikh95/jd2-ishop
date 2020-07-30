@@ -18,15 +18,16 @@
 	<fmt:message bundle="${loc}" key="local.headerPage.two" var="headerPageTwo" />
 	<fmt:message bundle="${loc}" key="local.button.registration"	var="registration" />
 	<fmt:message bundle="${loc}" key="local.button.authorization"	var="authorization" />
+	<fmt:message bundle="${loc}" key="local.button.signout" var="signout" />
 	<fmt:message bundle="${loc}" key="local.products.homepage" var="homePage" />
 	<fmt:message bundle="${loc}" key="local.cart.message.invitation" var="messageInvitation" />
-	
 	<fmt:message bundle="${loc}" key="local.cart.product" var="cart_product"/> 
     <fmt:message bundle="${loc}" key="local.cart.price" var="cart_price"/>
     <fmt:message bundle="${loc}" key="local.cart.quantity" var="cart_quantity"/>
     <fmt:message bundle="${loc}" key="local.cart.total" var="cart_total"/>
     <fmt:message bundle="${loc}" key="local.cart.submit.button" var="cart_submit"/> 
     <fmt:message bundle="${loc}" key="local.cart.empty.message" var="empty_cart_message"/>
+    <fmt:message bundle="${loc}" key="local.cart.button.delete" var="delete" />
 
 </head>
 <body class="body">
@@ -109,54 +110,74 @@
 			
 	</div>
 	
-	 <div class="cart_container">               	
-                        <div class="product-header">
-                            <h5 class="product-title">${cart_product}</h5>
-                            <h5 class="price">${cart_price}</h5>
-                            <h5 class="quantity">${cart_quantity}</h5>
-                            <h5 class="total">${cart_total}</h5>
-                        </div>
-                        
-                        <c:choose>
-                            <c:when test="${empty content}">		
-                        	    <div class="no_books_notice">
-                        	    <c:out value = "${empty_cart_message}"/>
-                        	    </div>
-                            </c:when>
-                        
-                            <c:when test="${not empty content}">
-                            	<c:set var="order_sum" value="${0}"/>
-                                <c:forEach items="${content}" var="order_item">  
-                        	        <div class="products">
-                            	        
-                            	        <img class="pic" src="./img/${order_item.key.imageAddress}">
-                            	        <span class="item_title">${order_item.key.title}</span>
-                                    </div>
-                                    <div class="price item_price">${order_item.key.price}</div>
-                                    <div class="quantity item_quantity">
-                        	            <a href="Controller?command=remove_item_from_cart&booksId=${order_item.key.id }&quantity=1&source=cart" >
-                            	            <img class="icon" src="https://img.icons8.com/plasticine/100/000000/double-left.png"/>
-                                        </a>
-                                        <span>${order_item.value}</span>
-                			            <a href="Controller?command=add_item_to_cart&booksId=${order_item.key.id }&quantity=1&source=cart">
-                            	            <img class="icon" src="https://img.icons8.com/plasticine/100/000000/double-right.png"/>
-                                        </a>
-                        
-                                    </div>
-                                    <div class="total item_total">
-                                        <c:out value="${order_item.key.price * order_item.value}"/>
-                                    </div>
-                                    <c:set var="order_sum" value="${order_sum + order_item.key.price * order_item.value}"/>
-                                </c:forEach>
-                                <div class="total_order_sum">
-                                	<c:out value="${order_sum}"/>
-                                </div>
-                                <form action="Controller" method="post">
-                                    <input type="hidden" name="command" value="confirm_order">
-                        	        <button id="submit_order" type="submit" value="confirm">${cart_submit}</button>
-                                </form>
-                            </c:when>   	
-                        </c:choose>         
+    <div>
+    	<c:choose>
+ 			<c:when test="${empty productsList}">		
+				<div >
+					<c:out value = "${empty_cart_message}"/>
+				</div>
+			</c:when>
+    		
+    		<c:when test="${not empty productsList}">
+    			<div class="cart_container">               	
+                	<div class="product-header">
+						<h5 class="product_name">${cart_product}</h5>
+                        <h5 class="price">${cart_price}</h5>
+                        <h5 class="quantity">${cart_quantity}</h5>
+                        <h5 class="total">${cart_total}</h5>
+                        <h5 class="delete_from_cart"></h5>
                     </div>
+                    
+                    <c:set var="order_sum" value="${0}"/>
+					<c:forEach items="${productsList}" var="product">  
+						<div class="products">
+						<div class="product_name">
+							<img class="image_cart" src="${product.value.image}">
+							<span class=" product_name item_title">${product.value.name}</span>
+						</div>		
+		
+						<div class="price">${product.value.price} BYN</div>
+						<div class="quantity">
+							<a href="Controller?command=REDUCE_QUANTITY_PRODUCT&productId=${product.key}" >
+								<img class="quantity_button" src="images/double-left.jpg"/>
+							</a>
+							<c:out value="${product.value.quantity}" />
+							<a href="Controller?command=INCREASE_QUANTITY_PRODUCT&productId=${product.key}" >
+								<img class="quantity_button" src="images/double-right.jpg"/>
+							</a>
+						</div>
+						<div class="total">
+							<c:out value="${product.value.price*product.value.quantity}"/>
+							BYN
+						</div>
+						<div>
+						<form action="Controller" method="post">
+							<input type="hidden" name="command" value="DELETE_PRODUCT_FROM_CART"/>
+							<input type="hidden" name="productId" value="${product.key}"/>
+								<button class="delete_button">
+									<div class="text_button"> ${delete}</div>
+							</button>
+						</form>
+						</div>
+						<c:set var="order_sum" value="${order_sum + product.value.price*product.value.quantity}"/>
+						</div>
+						
+					</c:forEach>
+                    
+                    
+                    <div class="total_order_sum">
+						<c:out value="${order_sum}"/>
+						BYN
+					</div>
+					<form action="Controller" method="post">
+						<input type="hidden" name="command" value="confirm_order">
+						<button id="submit_order" type="submit" value="confirm">${cart_submit}</button>
+					</form>
+                    
+				</div>
+			</c:when>   	
+		</c:choose>         
+	</div>                    
+                     
 </body>
 </html>

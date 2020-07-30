@@ -1,5 +1,6 @@
 package by.htp.ishop.service.impl;
 
+import by.htp.ishop.bean.ProductForCart;
 import by.htp.ishop.dao.DAOException;
 import by.htp.ishop.dao.DAOFactory;
 import by.htp.ishop.service.OrderService;
@@ -22,13 +23,10 @@ public class OrderServiceImpl implements OrderService{
 	}
 	
 	@Override
-	public boolean addProductToCart(int orderId, int productId, int countOfProducts) throws ServiceException {
+	public ProductForCart addProductToCart(int productId) throws ServiceException {
 		try {
 			DAOFactory instance = DAOFactory.getInstance();
-			if (instance.getOrderDao().addProductToCart(orderId, productId, countOfProducts)) {
-				return true;
-			}
-			return false;
+			return instance.getOrderDao().addProductToCart(productId);
 		} catch(DAOException e) {
 			throw new ServiceException(e);
 		}

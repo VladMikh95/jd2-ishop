@@ -1,9 +1,11 @@
 package by.htp.ishop.service;
 
+import by.htp.ishop.bean.ProductForCart;
+
 public interface OrderService{
 	
 	boolean createOrder(int userId) throws ServiceException;
 	 
-	boolean addProductToCart(int orderId, int productId, int countOfProducts) throws ServiceException;
+	ProductForCart addProductToCart(int productId) throws ServiceException;
 
 }
